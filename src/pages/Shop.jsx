@@ -12,9 +12,9 @@ import { IoMdArrowDropdown, IoMdArrowDropup } from 'react-icons/io'
 
 
 const Shop = () => {
- 
-  let {info} = useContext(ApiData)
-  
+
+  let { info } = useContext(ApiData)
+
   let [cateShow, setCateShow] = useState(false);
   let [cateShowOne, setCateShowOne] = useState(false);
   let [letShow, setLatShow] = useState(false);
@@ -22,50 +22,56 @@ const Shop = () => {
   let [letShowThree, setLatShowThree] = useState(false);
   let [perPage, setPerPage] = useState(6)
   let [currentPage, setCurrentPage] = useState(1)
-  let [cateFilter,setCateFilter] = useState([])
-  let [category,setCategory] = useState([])
+  let [cateFilter, setCateFilter] = useState([])
+  let [active, setActive] = useState("")
+  let [category, setCategory] = useState([])
   let lastPage = perPage * currentPage;
   let firstPage = lastPage - perPage
   let allData = info.slice(firstPage, lastPage);
- 
-  
- let pageNumber = [];
- for (let i = 0; i < Math.ceil(info.length / perPage); i++){
-  pageNumber.push(i)
- }
-  
 
-let paginate = (index) =>{
- setCurrentPage(index + 1)
-  
-}
-let next = () =>{
- if (currentPage < pageNumber.length){
-  setCurrentPage((state)=> state+1)
- }
-  
-}
-let prev = () =>{
+  // active code here 
+  let [activeCategory, setActiveCategory] = useState("");
 
-  if (currentPage > 1){
-     setCurrentPage((state) => state - 1)
+
+  let pageNumber = [];
+  for (let i = 0; i < Math.ceil(info.length / perPage); i++) {
+    pageNumber.push(i)
   }
 
-}
-useEffect(()=>{
-  setCategory([...new Set(info.map((item)=>item.category))])
-                
 
-},[info]);
- 
-let handleCategory = (citem) =>{
-  console.log(citem);
-  
-let cateFilter = info.filter((item)=> item.category === citem)
- setCateFilter(cateFilter);
-}
-  
+  let paginate = (index) => {
+    setCurrentPage(index + 1)
 
+  }
+  let next = () => {
+    if (currentPage < pageNumber.length) {
+      setCurrentPage((state) => state + 1)
+    }
+
+  }
+  let prev = () => {
+
+    if (currentPage > 1) {
+      setCurrentPage((state) => state - 1)
+    }
+
+  }
+  useEffect(() => {
+    setCategory([...new Set(info.map((item) => item.category))])
+
+
+  }, [info]);
+
+  let handleCategory = (citem) => {
+
+    let cateFilter = info.filter((item) => item.category === citem)
+    setCateFilter(cateFilter);
+  }
+  let handlelist = () => {
+    setActive("active")
+  }
+
+  console.log(active)
 
 
 
@@ -149,28 +155,34 @@ let cateFilter = info.filter((item)=> item.category === citem)
             <div className="">
               <h4
                 onClick={() => setCateShow(!cateShow)}
-                className="flex justify-between items-center font-dm font-bold text-[20px] text-[#262626] pb-[10px]"
+                className=" cursor-pointer flex justify-between items-center font-dm font-bold text-[20px] text-[#262626] pb-[10px]"
               >
                 Shop by Category
-                {cateShow ? <IoMdArrowDropup/> : <IoMdArrowDropdown/>}
+                {cateShow ? <IoMdArrowDropup /> : <IoMdArrowDropdown />}
               </h4>
               {cateShow && (
                 <ul className="mb-[10px]">
-                  {category.map((item)=>(
+                  {category.map((item) => (
 
-                    <li onClick={()=>handleCategory(item)}
-                    
-                    className={`text-[#767676] text-[16px] font-dm font-bold  py-[10px] 
-                      
-                    }`}
-                  >
-                    <p className="flex justify-between  items-center capitalize"> {item}</p>
-                   
-                  </li>
+                    <li
+                      key={item}
+                      onClick={() => {
+                        handleCategory(item);
+                        setActiveCategory(item);
+                      }}
+
+                      className={`cursor-pointer text-[16px] font-dm font-bold py-[10px] capitalize ${activeCategory === item
+                          ? "text-white border-l-4 border-blue-500 pl-2 bg-black" // Active style
+                          : "text-[#767676] hover:text-black"
+                        }`}
+                    >
+                      <p className="flex justify-between  items-center capitalize"> {item}</p>
+
+                    </li>
                   ))}
-                 
-                 
-                      
+
+
+
                 </ul>
               )}
             </div>
@@ -180,7 +192,7 @@ let cateFilter = info.filter((item)=> item.category === citem)
                 className="flex justify-between items-center font-dm font-bold text-[20px] text-[#262626] pb-[30px]"
               >
                 Shop by Color{" "}
-                {letShow ? <IoMdArrowDropup/> : <IoMdArrowDropdown/>}
+                {letShow ? <IoMdArrowDropup /> : <IoMdArrowDropdown />}
               </h4>
               {letShow && (
                 <ul className="mb-[50px]">
@@ -213,7 +225,7 @@ let cateFilter = info.filter((item)=> item.category === citem)
                 className="flex justify-between items-center font-dm font-bold text-[20px] text-[#262626] pb-[30px]"
               >
                 Shop by Brand{" "}
-                {letShowOne ? <IoMdArrowDropup/> : <IoMdArrowDropdown />}
+                {letShowOne ? <IoMdArrowDropup /> : <IoMdArrowDropdown />}
               </h4>
               {letShowOne && (
                 <ul className="mb-[50px]">
@@ -241,7 +253,7 @@ let cateFilter = info.filter((item)=> item.category === citem)
                 className="flex justify-between items-center font-dm font-bold text-[20px] text-[#262626] pb-[30px]"
               >
                 Shop by Price{" "}
-                {letShowThree ? <IoMdArrowDropup/> : <IoMdArrowDropdown/>}
+                {letShowThree ? <IoMdArrowDropup /> : <IoMdArrowDropdown />}
               </h4>
               {letShowThree && (
                 <ul>
@@ -268,10 +280,10 @@ let cateFilter = info.filter((item)=> item.category === citem)
             <div className="flex pb-[60px]">
               <div className="flex gap-[12px] ">
                 <div className="h-[36px] w-[36px] flex justify-center items-center hover:text-white bg-white hover:bg-[#000]">
-                  <HiSquares2X2/>
+                  <HiSquares2X2 />
                 </div>
-                <div className="h-[36px] w-[36px] flex justify-center items-center hover:text-white bg-white hover:bg-[#000]">
-                  <FaThList/>
+                <div onClick={handlelist} className="h-[36px] w-[36px] flex justify-center items-center hover:text-white bg-white hover:bg-[#000]">
+                  <FaThList />
                 </div>
               </div>
               <div className="flex pl-[280px] pr-[40px]">
@@ -304,9 +316,17 @@ let cateFilter = info.filter((item)=> item.category === citem)
               </div>
             </div>
             <div>
-              <Page allData = {allData} cateFilter={cateFilter}/>
+              <Page allData={allData} cateFilter={cateFilter} active={active} />
 
-              <Pagination pageNumber={pageNumber} paginate={paginate} currentPage={currentPage} perPage={perPage} info={info} next={next} prev={prev} />
+              <Pagination pageNumber={pageNumber}
+                paginate={paginate}
+                currentPage={currentPage}
+                perPage={perPage}
+                info={info}
+                next={next}
+                prev={prev}
+                cateFilter={cateFilter}
+              />
             </div>
           </div>
         </div>

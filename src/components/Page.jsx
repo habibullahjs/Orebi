@@ -7,10 +7,14 @@ import { Link } from 'react-router-dom'
 
 
 
-const Page = ({ allData, cateFilter }) => {
+const Page = ({ allData, cateFilter, active }) => {
   let { loading } = useContext(ApiData)
   let [catMain, setCatMain] = useState([]);
   let [showAll, setShowAll] = useState(true)
+
+  console.log(active)
+
+
 
   useEffect(() => {
 
@@ -85,13 +89,13 @@ const Page = ({ allData, cateFilter }) => {
                 ))}
             </div>
             {showAll ? cateFilter.length > 5 && 
-            <div className='' onClick={handleShow}>
-              <h2>Show All</h2>
+            <div className=' cursor-pointer w-25 pb-20' onClick={handleShow}>
+              <h2 className='bg-black pl-2 pr-2 rounded-2xl text-white text-center font-bold  '>Show All</h2>
             </div> 
             : cateFilter.length > 5 && 
             
-            <div onClick={showLess}>
-              <h2>Show Less</h2>
+            <div className=' cursor-pointer w-25  pb-20' onClick={showLess}>
+              <h2 className='bg-black pl-2 pr-2 rounded-2xl text-white text-center font-bold  ' >Show Less</h2>
             </div>
             
             }
