@@ -21,6 +21,8 @@ const Shop = () => {
   let [letShowOne, setLatShowOne] = useState(false);
   let [letShowThree, setLatShowThree] = useState(false);
   let [perPage, setPerPage] = useState(6)
+  let [low, setLow] = useState()
+  let [high, setHigh] = useState()
   let [currentPage, setCurrentPage] = useState(1)
   let [cateFilter, setCateFilter] = useState([])
   let [active, setActive] = useState("")
@@ -72,6 +74,47 @@ const Shop = () => {
   }
 
   console.log(active)
+
+
+  let handleChange = function (e) {
+    setPerPage(e.target.value)
+  }
+
+
+  const handleGrid = function () {
+    setActive("")
+  }
+
+  const handleClick1 = function(){
+    handlePrice({low: 0, high: 9})
+  }
+  const handleClick2 = function(){
+    handlePrice({low: 9, high: 19})
+  }
+  const handleClick3 = function(){
+    handlePrice({low: 19, high: 29})
+  }
+  const handleClick4 = function(){
+    handlePrice({low: 29, high: 39})
+  }
+  const handleClick5 = function(){
+    handlePrice({low: 39, high: 69})
+  }
+
+  const handlePrice = function(value){
+    setLow(value.low);
+    setHigh(value.high);
+
+    const priceShow = info.filter((item)=> item.price >= value.low && item.price <= value.high)
+    setCateFilter(priceShow)
+  }
+
+
+
+
+  
+
+
 
 
 
@@ -172,8 +215,8 @@ const Shop = () => {
                       }}
 
                       className={`cursor-pointer text-[16px] font-dm font-bold py-[10px] capitalize ${activeCategory === item
-                          ? "text-white border-l-4 border-blue-500 pl-2 bg-black" // Active style
-                          : "text-[#767676] hover:text-black"
+                        ? "text-white border-l-4 border-blue-500 pl-2 bg-black"
+                        : "text-[#767676] hover:text-black"
                         }`}
                     >
                       <p className="flex justify-between  items-center capitalize"> {item}</p>
@@ -250,26 +293,26 @@ const Shop = () => {
             <div className="">
               <h4
                 onClick={() => setLatShowThree(!letShowThree)}
-                className="flex justify-between items-center font-dm font-bold text-[20px] text-[#262626] pb-[30px]"
+                className="cursor-pointer flex justify-between items-center font-dm font-bold text-[20px] text-[#262626] pb-[30px]"
               >
                 Shop by Price{" "}
                 {letShowThree ? <IoMdArrowDropup /> : <IoMdArrowDropdown />}
               </h4>
               {letShowThree && (
-                <ul>
-                  <li className="text-[#767676] text-[16px] font-dm pb-[19px] border-b-1 border-[#D8D8D8] font-bold">
+                <ul className='cursor-pointer'>
+                  <li onClick={handleClick1} className={`text-[#767676] text-[16px] font-dm pb-[19px] border-b-1 border-[#D8D8D8] font-bold`}>
                     $0.00 - $9.99
                   </li>
-                  <li className="text-[#767676] text-[16px] font-dm py-[19px] border-b-1 border-[#D8D8D8] font-bold">
+                  <li onClick={handleClick2} className="text-[#767676] text-[16px] font-dm py-[19px] border-b-1 border-[#D8D8D8] font-bold">
                     $10.00 - $19.99
                   </li>
-                  <li className="text-[#767676] text-[16px] font-dm py-[19px] border-b-1 border-[#D8D8D8] font-bold">
+                  <li onClick={handleClick3} className="text-[#767676] text-[16px] font-dm py-[19px] border-b-1 border-[#D8D8D8] font-bold">
                     $20.00 - $29.99
                   </li>
-                  <li className="text-[#767676] text-[16px] font-dm py-[19px] border-b-1 border-[#D8D8D8] font-bold">
+                  <li onClick={handleClick4} className="text-[#767676] text-[16px] font-dm py-[19px] border-b-1 border-[#D8D8D8] font-bold">
                     $30.00 - $39.99
                   </li>
-                  <li className="text-[#767676] text-[16px] font-dm py-[19px] border-b-1 border-[#D8D8D8] font-bold">
+                  <li onClick={handleClick5} className="text-[#767676] text-[16px] font-dm py-[19px] border-b-1 border-[#D8D8D8] font-bold">
                     $40.00 - $69.99
                   </li>
                 </ul>
@@ -279,10 +322,14 @@ const Shop = () => {
           <div className="w-9/12 pl-[40px] ">
             <div className="flex pb-[60px]">
               <div className="flex gap-[12px] ">
-                <div className="h-[36px] w-[36px] flex justify-center items-center hover:text-white bg-white hover:bg-[#000]">
+                <div onClick={handleGrid}
+                  className={`${active == "active" ? "h-[36px] w-[36px] flex justify-center items-center hover:text-white bg-white hover:bg-[#000]"
+                    : "h-[36px] w-[36px] flex justify-center items-center border border-blue-600 text-white hover:text-white bg-black hover:bg-[#000]"
+                  }`}>
                   <HiSquares2X2 />
                 </div>
-                <div onClick={handlelist} className="h-[36px] w-[36px] flex justify-center items-center hover:text-white bg-white hover:bg-[#000]">
+                <div onClick={handlelist}
+                  className={`${active == "active" ? "h-[36px] w-[36px] flex justify-center items-center hover:text-white bg-black text-white border border-blue-500 hover:bg-[#000]" : "h-[36px] w-[36px] flex justify-center items-center hover:text-white bg-white hover:bg-[#000]"}`}>
                   <FaThList />
                 </div>
               </div>
@@ -305,12 +352,13 @@ const Shop = () => {
                 <form className="w-[139px]">
                   <select
                     id="countries"
+                    onChange={handleChange}
                     className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg  block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white "
                   >
-                    <option>36</option>
-                    <option>38</option>
-                    <option>40</option>
-                    <option>42</option>
+                    <option>6</option>
+                    <option>9</option>
+                    <option>12</option>
+                    <option>15</option>
                   </select>
                 </form>
               </div>

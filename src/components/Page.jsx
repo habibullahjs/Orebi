@@ -55,7 +55,7 @@ const Page = ({ allData, cateFilter, active }) => {
       {cateFilter.length > 0
         ? (
           <div>
-            <div className="flex flex-wrap justify-between">
+            <div className={`${active == "active" ? "w-full" : "flex flex-wrap justify-between"}`}>
               {
                 catMain.map((item) => (
                   <div className="w-[31%] pb-[50px] ">
@@ -103,7 +103,7 @@ const Page = ({ allData, cateFilter, active }) => {
             
           </div>
         ) : (
-          <div className="flex flex-wrap justify-between">
+          <div className={`${active  ==  "active" ? "w-full" : "flex flex-wrap justify-between"} `}>
             {
               allData.map((item) => (
 
