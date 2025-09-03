@@ -85,36 +85,29 @@ const Shop = () => {
     setActive("")
   }
 
-  const handleClick1 = function(){
-    handlePrice({low: 0, high: 9})
+  const handleClick1 = function () {
+    handlePrice({ low: 0, high: 9 })
   }
-  const handleClick2 = function(){
-    handlePrice({low: 9, high: 19})
+  const handleClick2 = function () {
+    handlePrice({ low: 9, high: 19 })
   }
-  const handleClick3 = function(){
-    handlePrice({low: 19, high: 29})
+  const handleClick3 = function () {
+    handlePrice({ low: 19, high: 29 })
   }
-  const handleClick4 = function(){
-    handlePrice({low: 29, high: 39})
+  const handleClick4 = function () {
+    handlePrice({ low: 29, high: 39 })
   }
-  const handleClick5 = function(){
-    handlePrice({low: 39, high: 69})
+  const handleClick5 = function () {
+    handlePrice({ low: 39, high: 69 })
   }
 
-  const handlePrice = function(value){
+  const handlePrice = function (value) {
     setLow(value.low);
     setHigh(value.high);
 
-    const priceShow = info.filter((item)=> item.price >= value.low && item.price <= value.high)
+    const priceShow = info.filter((item) => item.price >= value.low && item.price <= value.high)
     setCateFilter(priceShow)
   }
-
-
-
-
-  
-
-
 
 
 
@@ -325,7 +318,7 @@ const Shop = () => {
                 <div onClick={handleGrid}
                   className={`${active == "active" ? "h-[36px] w-[36px] flex justify-center items-center hover:text-white bg-white hover:bg-[#000]"
                     : "h-[36px] w-[36px] flex justify-center items-center border border-blue-600 text-white hover:text-white bg-black hover:bg-[#000]"
-                  }`}>
+                    }`}>
                   <HiSquares2X2 />
                 </div>
                 <div onClick={handlelist}
