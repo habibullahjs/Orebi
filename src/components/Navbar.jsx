@@ -5,6 +5,7 @@ import cartImg from "../assets/cart.png"
 import { HiBars2 } from "react-icons/hi2";
 import { FaSearch } from "react-icons/fa";
 import { IoMdArrowDropright } from "react-icons/io";
+import { Link } from "react-router-dom";
 import { FaUser } from "react-icons/fa";
 import { IoMdArrowDropdown } from "react-icons/io";
 import { FaCartArrowDown } from "react-icons/fa";
@@ -142,8 +143,10 @@ const Navbar = () => {
             <div className="my-2">
               <h3><span>Subtotal:</span> $44.00</h3>
               <ul className='flex justify-between mt-2'>
+                
                 <li className='py-3 w-[150px] bg-[#262626] text-white font-dm text-[16px]
-                text-center hover:text-[#222] hover:bg-[#fff] duration-300 ease-in-out'>View Cart</li>
+                text-center hover:text-[#222] hover:bg-[#fff] duration-300 ease-in-out'><Link to="/Cart">View Cart</Link></li>
+                
                 <li className='py-3 w-[150px] bg-[#262626] text-white font-dm text-[16px]
                 text-center hover:text-[#222] hover:bg-[#fff] duration-300 ease-in-out'>Checkout</li>
               </ul>
